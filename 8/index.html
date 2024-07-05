@@ -1,46 +1,37 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="jp">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./main.js"></script>
     <title>Document</title>
 </head>
+
 <body>
+    <input type="radio" id="add" name="maker" value="登録" onclick="formSwitch()">
+    <label for="add">登録</label>
+    <input type="radio" id="search" name="maker" value="検索" onclick="formSwitch()">
+    <label for="search">検索</label>
     <hr>
-    <button type="button" onclick="insertForm('entry')">登録</button>
-    <button type="button" onclick="insertForm('search')">検索</button>
-    <hr>
-    <div id="message"></div>
-    <form id="student">
-        <!--
-        ID：<input type="number" name="no" required/><br>
-        氏名：<input type="text" name="name" required/><br>
-        メールアドレス：<input type="email" name="mail" required/><br>
-        生年月日：<input type="date" name="birthday" required/><br>
-        <button type="button" onclick="addStudent()">登録</button>
-        -->
-    </form> 
-    <br>
-    <div id="list">
-        <!--
-        <table border="1">
-            <tr>
-                <th>番号</th>
-                <th>氏名</th>
-                <th>メールアドレス</th>
-                <th>誕生日</th>
-                <th>参照</th></tr>';
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>櫻井優真</td>
-                <td>40109ys@saisen.ac.jp</td>
-                <td>2004/10/03</td>
-                <td><button type="button" onclick="insertForm(\'reference\')">参照</button></td>
-            <tr>
-        </table>
-        -->
+    <div id="addform">
+        <form id="student">
+            ID：<input type="number" name="no" required /><br>
+            氏名：<input type="text" name="name" required /><br>
+            メールアドレス：<input type="email" name="mail" required /><br>
+            生年月日：<input type="date" name="birthday" required /><br>
+            <button type="button" onclick="addStudent()">登録</button>
+        </form>
     </div>
+    <div id="searchform">
+        <form id="student">
+            氏名：<input type="text" name="name" value="" placeholder="name" />
+            <button type="button" onclick="searchStudent()">検索</button>
+        </form>
+    </div>
+    <div id="message"></div>
+    <br>
+    <div id="list"></div>
 </body>
+
 </html>
