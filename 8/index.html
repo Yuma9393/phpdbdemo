@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="jp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./main.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="radio" id="add" name="maker" value="登録" onclick="formSwitch()">
+    <label for="add">登録</label>
+    <input type="radio" id="search" name="maker" value="検索" onclick="formSwitch()">
+    <label for="search">検索</label>
+    <hr>
+    <div id="addform">
+        <form id="student">
+            ID：<input type="number" name="no" required /><br>
+            氏名：<input type="text" name="name" required /><br>
+            メールアドレス：<input type="email" name="mail" required /><br>
+            生年月日：<input type="date" name="birthday" required /><br>
+            <button type="button" onclick="addStudent()">登録</button>
+        </form>
+    </div>
+    <div id="searchform">
+        <form id="student">
+            氏名：<input type="text" name="name" value="" placeholder="name" />
+            <button type="button" onclick="searchStudent()">検索</button>
+        </form>
+    </div>
+    <div id="message"></div>
+    <br>
+    <div id="list"></div>
+</body>
+
+</html>
