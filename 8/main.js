@@ -1,4 +1,9 @@
+const studentsPerPage = 5;//1ページの件数
+let currentPage = 1;//のページ
+var students = [];
+
 function getAllStudents() {
+    //console.log('1');
     fetch('./list.php')
     .then((response) => {
         if (!response.ok) {
@@ -8,17 +13,69 @@ function getAllStudents() {
         return response.json();
     })
     .then((json) => {
-        let html = '<table border="1"><thead><tr><th>番号</th><th>氏名</th><th>メールアドレス</th><th>誕生日</th><th>参照</th></tr></thead><tbody>';
-        json.forEach(student => {
-            html += '<tr><td>' + student.no + '</td><td>' + student.name + '</td><td>' + student.mail + '</td><td>' + student.birthday + '</td><td><button type="button" onclick="insertForm(\'reference\', ' + student.no + ')">参照</button></td></tr>';
-        })
-        html += '</tbody></table>';
-        document.getElementById('list').innerHTML = html;    
+        students = json;//jsonを配列にいれる
+        renderPage(students);
+        renderPagination(students);
     })
     .catch((error) => {
         console.log(error);
     });
 }
+function renderPage(students) {
+        //console.log(json);
+        //students = JSON.parse(json);
+        const start = (currentPage - 1) * studentsPerPage;
+        const end = start + studentsPerPage;
+        const pageStudents = students.slice(start, end);
+        let html = '<table border="1"><tr><th>番号</th><th>氏名</th><th>メールアドレス</th><th>誕生日</th><th>削除</th><th>更新</th></tr>';
+        pageStudents.forEach(student => {
+            html += '<tr><td>' + student.no + '</td><td>' + student.name + '</td><td>' + student.mail + '</td><td>' + student.birthday + '</td><td><button type="button" onclick="deleteStudent(' + student.no + ')">削除</button></td><td><button type="button" onclick="(' + student.no + ')">更新</button></td></tr>';
+        })
+        html += '</table>';
+        document.getElementById('list').innerHTML = html;    
+
+}
+
+function renderPagination(students) {
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+    const totalPages = Math.ceil(students.length / studentsPerPage);
+
+    if (currentPage > 1) {
+        const prevButton = document.createElement('button');
+        prevButton.textContent = 'previous';
+        prevButton.onclick = () => {
+            currentPage--;
+            renderPage(students);
+            renderPagination(students);
+        };
+        pagination.appendChild(prevButton);
+    }
+    
+    for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.onclick = () => {
+            currentPage = i;
+            renderPage(students);
+            renderPagination(students);        
+        };
+        pagination.appendChild(pageButton);
+
+    }
+
+    if (currentPage < totalPages) {
+        const nextButton = document.createElement('button');
+        nextButton.textContent = "Next";
+        nextButton.onclick = () => {
+            currentPage++;
+            renderPage(students);
+            renderPagination(students);        
+        };
+        pagination.appendChild(nextButton);
+    }
+}
+
 
 function addStudent() {
     const formData = new FormData(document.getElementById('student'));
@@ -33,7 +90,6 @@ function addStudent() {
         } else {
             getAllStudents();
             document.getElementById('student').innerHTML = '';
-            document.getElementById('message').innerText = 'データが登録されました。';
         }
     })
     .catch((error) => {
@@ -55,7 +111,6 @@ function deleteStudent(no) {
         } else {
             getAllStudents();
             document.getElementById('student').innerHTML = '';
-            document.getElementById('message').innerText = 'データが削除されました。';
         }
     })
     .catch((error) => {
