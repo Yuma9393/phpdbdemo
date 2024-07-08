@@ -129,10 +129,13 @@ function searchStudent(){
         if (!response.ok) {
             document.getElementById('message').innerText = 'データが検索できませんでした。';    
             throw new Error("エラーが発生しました");
-        } else {
-            //getAllStudents();
-            document.getElementById('message').innerText = 'データが検索されました。';
         }
+        return response.json();
+    })
+    .then((json) => {
+        students = json;//jsonを配列にいれる
+        renderPage(students);
+        renderPagination(students);
     })
     .catch((error) => {
         console.log(error);
