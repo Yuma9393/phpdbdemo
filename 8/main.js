@@ -196,17 +196,19 @@ function updateStudent(no) {
 }
 
 function insertForm(mode, no){
-    let student = 'ID：<input type="number" name="no" required/><br>氏名：<input type="text" name="name" required/><br>メールアドレス：<input type="email" name="mail" required/><br>生年月日：<input type="date" name="birthday" required/><br>';
+    let student = '';
     if(mode === "reference"){
+        student += 'ID：<input type="number" name="no" required/><br>氏名：<input type="text" name="name" required/><br>メールアドレス：<input type="email" name="mail" required/><br>生年月日：<input type="date" name="birthday" required/><br>';
         referenceStudent(no);
-
         student += '<button type="button" onclick="updateStudent(' + no + ')">更新</button>';
         student += '<button type="button" onclick="deleteStudent(' + no + ')">削除</button>';
     }
     if(mode === "entry"){
+        student += 'ID：<input type="number" name="no" required/><br>氏名：<input type="text" name="name" required/><br>メールアドレス：<input type="email" name="mail" required/><br>生年月日：<input type="date" name="birthday" required/><br>';
         student += '<button type="button" onclick="addStudent()">登録</button>';
     }
     if(mode === "search"){
+        student += '<br>氏名：<input type="text" name="name" required/>'
         student += '<button type="button" onclick="searchStudent()">検索</button>';
     }
     document.getElementById("student").innerHTML = student;
