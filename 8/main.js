@@ -8,7 +8,7 @@ function getAllStudents() {
         return response.json();
     })
     .then((json) => {
-        let html = '<table border="1"><tr><th>番号</th><th>氏名</th><th>メールアドレス</th><th>誕生日</th><th>参照</th>/tr>';
+        let html = '<table border="1"><tr><th>番号</th><th>氏名</th><th>メールアドレス</th><th>誕生日</th><th>参照</th></tr>';
         json.forEach(student => {
             html += '<tr><td>' + student.no + '</td><td>' + student.name + '</td><td>' + student.mail + '</td><td>' + student.birthday + '</td><td><button type="button" onclick="insertForm(\'reference\', ' + student.no + ')">参照</button></td></tr>';
         })
